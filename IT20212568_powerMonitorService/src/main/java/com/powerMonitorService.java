@@ -50,4 +50,16 @@ public class powerMonitorService {
 		String output = itemObj.updatePowerMonitor(monitorId, meterNo, meterReading, units, readingDate);
 		return output;
 	}
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deletePowerMonitor(String itemData) {
+//Convert the input string to an XML document
+		Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
+//Read the value from the element <monitorId>
+		String monitorId = doc.select("monitorId").text();
+		String output = itemObj.deletePowerMonitor(monitorId);
+		return output;
+	}
 }
