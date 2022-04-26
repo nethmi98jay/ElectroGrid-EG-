@@ -60,5 +60,21 @@ public class employeeService
 	 String output = empObj.updateEmployee(idemployee,employeeNumber,employeeName,employeeArea,employeePnumber,employeeMail); 
 	return output; 
 	}
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String deleteEmployee(String empData)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(empData, "", Parser.xmlParser());
+		
+		//Read the value from the element <serviceID>
+		String idemployee = doc.select("idemployee").text();
+		String output =empObj.deleteEmployee(idemployee);
+		
+		return output;
+	}
 
 }
