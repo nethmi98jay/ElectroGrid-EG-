@@ -144,7 +144,16 @@ public class Payment {
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
-		 } 
+		 }
+
+
+
+
+
+		public String deletePayment(String paymentID) {
+			// TODO Auto-generated method stub
+			return null;
+		} 
 		
 		
 		
