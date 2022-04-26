@@ -73,6 +73,7 @@ public class employee {
 	 } 
 	 return output; 
 	 } 
+	//insert employee
 	public String insertEmployee(String employeeNumber,String employeeName, String employeeArea, String employeePnumber, String employeeMail) 
 	 { 
 		 String output = ""; 
@@ -103,5 +104,35 @@ public class employee {
 		 } 
 		 return output; 
 		 } 
+	//Update
+		public String updateEmployee(String idemployee,String employeeNumber, String employeeName, String employeeArea, String employeePnumber, String employeeMail) 
+		 { 
+		 String output = ""; 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for updating."; } 
+		 // create a prepared statement
+		 String query = "UPDATE employee SET employeeName=?,employeeArea=?,employeePnumber=?,employeeMail=? WHERE idemployee=?"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 // binding values
+		 preparedStmt.setString(1, employeeName); 
+		 preparedStmt.setString(2, employeeArea);
+		 preparedStmt.setString(3, employeePnumber);
+		 preparedStmt.setString(4, employeeMail);
+		 preparedStmt.setInt(5, Integer.parseInt(idemployee));
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Updated successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while updating the item."; 
+		 System.err.println(e.getMessage()); 
+		 } 
+		 return output; 
+		 } 
+		
 	
 }
