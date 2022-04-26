@@ -70,4 +70,39 @@ public class powerMonitor {
 		return output;
 
 	}
+	public String insertPowerMonitor(String meterNo, String meterReading, String units, String readingDate) {
+		String output = "";
+
+		try {
+			Connection con = connect();
+
+			if (con == null) {
+				return "Error while connecting to the database for inserting.";
+			}
+
+// create a prepared statement
+			String query = " insert into power_monitor " + "(`monitorId`,`meterNo`,`meterReading`,`units`,`readingDate`)"
+					+ " values (?, ?, ?, ?, ?)";
+
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+// binding values
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setString(2, meterNo);
+			preparedStmt.setString(3, meterReading);
+			preparedStmt.setInt(4, Integer.parseInt(units));
+			preparedStmt.setString(5, readingDate);
+
+// execute the statement
+			preparedStmt.execute();
+			con.close();
+
+			output = "Inserted successfully";
+		} catch (Exception e) {
+			output = "Error while inserting Power monitoring details.";
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+	}
 }

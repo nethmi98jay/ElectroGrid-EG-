@@ -24,4 +24,14 @@ public class powerMonitorService {
 	public String readPowerMonitor() {
 		return itemObj.readPowerMonitor();
 	}
+	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertPowerMonitor(@FormParam("meterNo") String meterNo, @FormParam("meterReading") String meterReading,
+			@FormParam("units") String units, @FormParam("readingDate") String readingDate) {
+		String output = itemObj.insertPowerMonitor(meterNo, meterReading, units, readingDate);
+		return output;
+	}
 }
