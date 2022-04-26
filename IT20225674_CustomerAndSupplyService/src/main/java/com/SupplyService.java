@@ -17,6 +17,7 @@ import model.Supply;
 public class SupplyService {
 	Supply supObj = new Supply();
 
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)

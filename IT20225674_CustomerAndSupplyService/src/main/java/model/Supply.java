@@ -21,6 +21,7 @@ public class Supply {
 		return con;
 	}
 
+	
 	public String readSupplyDetails() {
 		String output = "";
 		try {
