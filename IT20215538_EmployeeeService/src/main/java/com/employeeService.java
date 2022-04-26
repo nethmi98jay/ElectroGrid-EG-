@@ -42,6 +42,5 @@ public class employeeService
 	 String output = empObj.insertEmployee(employeeNumber,employeeName,employeeArea,employeePnumber,employeeMail); 
 	return output; 
 	}
-	
-	
+		
 }
