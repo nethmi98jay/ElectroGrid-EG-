@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -74,6 +75,38 @@ public class Supply {
 		 } 
 		 return output; 
 		 } 
+		
+		//Insert power supply
+		public String insertSupplyDetails(String AccountNo, String SupplyType, String SupplyDate, boolean psupplyStatus, int CustomerID ) 
+		 { 
+			 String output = ""; 
+			 try
+			 { 
+			 Connection con = connect(); 
+			 if (con == null) 
+			 {return "Error while connecting to the database for inserting."; } 
+			 // create a prepared statement
+			 String query = "insert into powersupply (`psupplyID`,`accountNo`,`psupplyType`,`psupplyDate`,`psupplyStatus`,`customerID`) values (?, ?, ?, ?, ?,?)"; 
+			 PreparedStatement preparedStmt = con.prepareStatement(query); 
+			 // binding values 
+			 preparedStmt.setInt(1, 0); 
+			 preparedStmt.setString(2,AccountNo); 
+			 preparedStmt.setString(3,SupplyType); 
+			 preparedStmt.setString(4,SupplyDate); 
+			 preparedStmt.setBoolean(5,psupplyStatus);
+			 preparedStmt.setInt(6,CustomerID); 
+			 // execute the statement
+			 preparedStmt.execute(); 
+			 con.close(); 
+			 output = "Power supply details inserted successfully"; 
+			 } 
+			 catch (Exception e) 
+			 { 
+			 output = "Error while inserting the power supply details."; 
+			 System.err.println(e.getMessage()); 
+			 } 
+			 return output; 
+			 } 
 		
 		
 }

@@ -20,5 +20,20 @@ public class UserService
 		return userObj.readUsers();
 	} 
 	
+	@POST
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertUser(@FormParam("UserName") String UserName, 
+	 @FormParam("UserNIC") String UserNIC, 
+	 @FormParam("UserAddress") String UserAddress,
+	 @FormParam("UserPhone") String UserPhone) 
+	
+	{ 
+	 String output = userObj.insertUser(UserName,UserNIC,UserAddress,UserPhone); 
+	return output; 
+	}
+	
+	
 	
 }
