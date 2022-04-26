@@ -78,4 +78,37 @@ public class Payment {
 	 return output; 
 	 } 
 	
+	
+	
+	//Insert Payments
+		public String insertPayment(String CardNumber, String CardName, String Cvv, String ExpDate) 
+		 { 
+			 String output = ""; 
+			 try
+			 { 
+			 Connection con = connect(); 
+			 if (con == null) 
+			 {return "Error while connecting to the database for inserting."; } 
+			 // create a prepared statement
+			 String query = "insert into payment(`CardNumber`,`CardName`,`Cvv`,`ExpDate`) values (?, ?, ?, ?)"; 
+			 PreparedStatement preparedStmt = con.prepareStatement(query); 
+			 // binding values 
+			 preparedStmt.setInt(1, 0); 
+			 preparedStmt.setString(2, CardNumber); 
+			 preparedStmt.setString(3, CardName); 
+			 preparedStmt.setString(4, Cvv); 
+			 preparedStmt.setString(5, ExpDate); 
+			 // execute the statement
+			 preparedStmt.execute(); 
+			 con.close(); 
+			 output = "	Payment inserted successfully"; 
+			 } 
+			 catch (Exception e) 
+			 { 
+			 output = "Error while inserting the Payment."; 
+			 System.err.println(e.getMessage()); 
+			 } 
+			 return output; 
+			 } 
+	
 }

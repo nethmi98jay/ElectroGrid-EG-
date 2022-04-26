@@ -27,4 +27,17 @@ public class PaymentService
 		return paymentObj.readPayments();
 	} 
 	
+	@POST
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertPayment(@FormParam("CardNumber") String CardNumber, 
+	 @FormParam("CardName") String CardName, 
+	 @FormParam("Cvv") String Cvv,
+	 @FormParam("ExpDate") String ExpDate) 
+	
+	{ 
+	 String output = paymentObj.insertPayment(CardNumber,CardName,Cvv,ExpDate); 
+	return output; 
+	}
 }
