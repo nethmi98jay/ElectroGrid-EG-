@@ -14,66 +14,63 @@ import org.jsoup.nodes.Document;
 
 import model.employee;
 
-@Path("/employee") 
-public class employeeService
-{ 
-	employee empObj = new employee(); 
-	
+@Path("/employee")
+public class employeeService {
+	employee empObj = new employee();
+
 	@GET
-	@Path("/") 
-	@Produces(MediaType.TEXT_HTML) 
-	public String readEmployees() 
-	{ 
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public String readEmployees() {
 		return empObj.readEmployees();
 	}
 
 	@POST
-	@Path("/") 
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
-	@Produces(MediaType.TEXT_PLAIN) 
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String insertEmployee(@FormParam("employeeNumber") String employeeNumber,
-	 @FormParam("employeeName") String employeeName,
-	 @FormParam("employeeArea") String employeeArea, 
-	 @FormParam("employeePnumber") String employeePnumber,
-	 @FormParam("employeeMail") String employeeMail) 
-	
-	
-	{ 
-	 String output = empObj.insertEmployee(employeeNumber,employeeName,employeeArea,employeePnumber,employeeMail); 
-	return output; 
+			@FormParam("employeeName") String employeeName, @FormParam("employeeArea") String employeeArea,
+			@FormParam("employeePnumber") String employeePnumber, @FormParam("employeeMail") String employeeMail)
+
+	{
+		String output = empObj.insertEmployee(employeeNumber, employeeName, employeeArea, employeePnumber,
+				employeeMail);
+		return output;
 	}
+
 	@PUT
-	@Path("/") 
-	@Consumes(MediaType.APPLICATION_JSON) 
-	@Produces(MediaType.TEXT_PLAIN) 
-	public String updateEmployee(String empData) 
-	{ 
-	//Convert the input string to a JSON object 
-	 JsonObject empObject = new JsonParser().parse(empData).getAsJsonObject(); 
-	//Read the values from the JSON object
-	 String idemployee = empObject.get("idemployee").getAsString();
-	 String employeeNumber = empObject.get("employeeNumber").getAsString(); 
-	 String employeeName = empObject.get("employeeName").getAsString(); 
-	 String employeeArea = empObject.get("employeeArea").getAsString(); 
-	 String employeePnumber = empObject.get("employeePnumber").getAsString(); 
-	 String employeeMail = empObject.get("employeeMail").getAsString(); 
-	 String output = empObj.updateEmployee(idemployee,employeeNumber,employeeName,employeeArea,employeePnumber,employeeMail); 
-	return output; 
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateEmployee(String empData) {
+		// Convert the input string to a JSON object
+		JsonObject empObject = new JsonParser().parse(empData).getAsJsonObject();
+		// Read the values from the JSON object
+		String idemployee = empObject.get("idemployee").getAsString();
+		String employeeNumber = empObject.get("employeeNumber").getAsString();
+		String employeeName = empObject.get("employeeName").getAsString();
+		String employeeArea = empObject.get("employeeArea").getAsString();
+		String employeePnumber = empObject.get("employeePnumber").getAsString();
+		String employeeMail = empObject.get("employeeMail").getAsString();
+		String output = empObj.updateEmployee(idemployee, employeeNumber, employeeName, employeeArea, employeePnumber,
+				employeeMail);
+		return output;
 	}
+
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	
-	public String deleteEmployee(String empData)
-	{
-		//Convert the input string to an XML document
+
+	public String deleteEmployee(String empData) {
+		// Convert the input string to an XML document
 		Document doc = Jsoup.parse(empData, "", Parser.xmlParser());
-		
-		//Read the value from the element <serviceID>
+
+		// Read the value from the element <serviceID>
 		String idemployee = doc.select("idemployee").text();
-		String output =empObj.deleteEmployee(idemployee);
-		
+		String output = empObj.deleteEmployee(idemployee);
+
 		return output;
 	}
 
