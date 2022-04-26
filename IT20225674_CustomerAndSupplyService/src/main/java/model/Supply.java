@@ -126,5 +126,30 @@ public class Supply {
 			 return output; 
 			 } 
 			
-
+			//Delete
+			public String deleteSupply(String psupplyID) 
+			 { 
+			 String output = ""; 
+			 try
+			 { 
+			 Connection con = connect(); 
+			 if (con == null) 
+			 {return "Error while connecting to the database for deleting."; } 
+			 // create a prepared statement
+			 String query = "delete from user where psupplyID=?"; 
+			 PreparedStatement preparedStmt = con.prepareStatement(query); 
+			 // binding values
+			 preparedStmt.setInt(1, Integer.parseInt(psupplyID)); 
+			 // execute the statement
+			 preparedStmt.execute(); 
+			 con.close(); 
+			 output = "Deleted successfully"; 
+			 } 
+			 catch (Exception e) 
+			 { 
+			 output = "Error while deleting the power supply details."; 
+			 System.err.println(e.getMessage()); 
+			 } 
+			 return output; 
+			 } 
 }

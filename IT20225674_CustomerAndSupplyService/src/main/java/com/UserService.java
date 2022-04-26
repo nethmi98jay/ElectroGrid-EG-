@@ -4,6 +4,10 @@ package com;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -46,6 +50,23 @@ public class UserService {
 		String UserAddress = userObject.get("UserAddress").getAsString();
 		String UserPhone = userObject.get("UserPhone").getAsString();
 		String output = userObj.updateUser(UserID, UserName, UserNIC, UserAddress, UserPhone);
+		return output;
+	}
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String deleteUser(String userData)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(userData, "", Parser.xmlParser());
+		
+		//Read the value from the element <serviceID>
+		String UserID = doc.select("UserID").text();
+		String output =userObj.deleteUser(UserID);
+		
 		return output;
 	}
 }

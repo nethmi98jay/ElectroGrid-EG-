@@ -4,6 +4,10 @@ package com;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -51,6 +55,22 @@ public class SupplyService {
 	 String output = supObj.updateSupplyDetails(psupplyID,accountNo,psupplyType,psupplyDate,psupplyStatus,customerID);
 	return output; 
 	}
-
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String deleteSupply(String supplyData)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(supplyData, "", Parser.xmlParser());
+		
+		//Read the value from the element <SupplyID>
+		String psupplyID = doc.select("psupplyID").text();
+		String output =supObj.deleteSupply(psupplyID);
+		
+		return output;
+	}
 
 }
