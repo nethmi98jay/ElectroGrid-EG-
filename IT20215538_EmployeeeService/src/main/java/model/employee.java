@@ -73,4 +73,34 @@ public class employee {
 	 } 
 	 return output; 
 	 } 
+	public String insertEmployee(String employeeNumber,String employeeName, String employeeArea, String employeePnumber, String employeeMail) 
+	 { 
+		 String output = ""; 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for inserting."; } 
+		 // create a prepared statement
+		 String query = "insert into employee (`employeeNumber`,`employeeName`,`employeeArea`,`employeePnumber`,`employeeMail`) values (?, ?, ?, ?, ?)"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 // binding values 
+		 preparedStmt.setInt(1, 0);
+		 preparedStmt.setString(1, employeeNumber); 
+		 preparedStmt.setString(2, employeeName); 
+		 preparedStmt.setString(3, employeeArea); 
+		 preparedStmt.setString(4, employeePnumber); 
+		 preparedStmt.setString(5, employeeMail); 
+		 // execute the statement
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Employee inserted successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while inserting the employee."; 
+		 System.err.println(e.getMessage()); 
+		 } 
+		 return output; 
+		 } 
 }

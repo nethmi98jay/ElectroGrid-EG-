@@ -26,5 +26,20 @@ public class employeeService
 	{ 
 		return empObj.readEmployees();
 	}
+
+	@POST
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertEmployee(@FormParam("employeeNumber") String employeeNumber,
+	 @FormParam("employeeName") String employeeName,
+	 @FormParam("employeeArea") String employeeArea, 
+	 @FormParam("employeePnumber") String employeePnumber,
+	 @FormParam("employeeMail") String employeeMail) 
+	
+	{ 
+	 String output = empObj.insertEmployee(employeeNumber,employeeName,employeeArea,employeePnumber,employeeMail); 
+	return output; 
+	}
 	
 }
