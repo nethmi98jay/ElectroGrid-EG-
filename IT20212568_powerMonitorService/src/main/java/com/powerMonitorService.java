@@ -34,4 +34,20 @@ public class powerMonitorService {
 		String output = itemObj.insertPowerMonitor(meterNo, meterReading, units, readingDate);
 		return output;
 	}
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updatePowerMonitor(String itemData) {
+//Convert the input string to a JSON object
+		JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+//Read the values from the JSON object
+		String monitorId = itemObject.get("monitorId").getAsString();
+		String meterNo = itemObject.get("meterNo").getAsString();
+		String meterReading = itemObject.get("meterReading").getAsString();
+		String units = itemObject.get("units").getAsString();
+		String readingDate = itemObject.get("readingDate").getAsString();
+		String output = itemObj.updatePowerMonitor(monitorId, meterNo, meterReading, units, readingDate);
+		return output;
+	}
 }

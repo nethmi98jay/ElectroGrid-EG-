@@ -105,4 +105,38 @@ public class powerMonitor {
 
 		return output;
 	}
+	public String updatePowerMonitor(String monitorId, String meterNo, String meterReading, String units, String readingDate) {
+		String output = "";
+
+		try {
+			Connection con = connect();
+
+			if (con == null) {
+				return "Error while connecting to the database for updating.";
+			}
+
+// create a prepared statement
+			String query = "UPDATE power_monitor SET meterNo=?,meterReading=?,units=?,readingDate=?" + "WHERE monitorId=?";
+
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+// binding values
+			preparedStmt.setString(1, meterNo);
+			preparedStmt.setString(2, meterReading);
+			preparedStmt.setInt(3, Integer.parseInt(units));
+			preparedStmt.setString(4, readingDate);
+			preparedStmt.setInt(5, Integer.parseInt(monitorId));
+
+// execute the statement
+			preparedStmt.execute();
+			con.close();
+
+			output = "Updated successfully";
+		} catch (Exception e) {
+			output = "Error while updating power monitoring details.";
+			System.err.println(e.getMessage());
+		}
+
+		return output;
+	}
 }
