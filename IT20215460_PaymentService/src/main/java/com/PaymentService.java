@@ -40,6 +40,7 @@ public class PaymentService
 	 String output = paymentObj.insertPayment(CardNumber,CardName,Cvv,ExpDate); 
 	return output; 
 	}
+	 
 	
 	
 	@PUT
@@ -48,9 +49,11 @@ public class PaymentService
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String updatePayment(String paymentData) 
 	{ 
-	//Convert the input string to a JSON object 
+	
+		//Convert the input string to a JSON object 
 	 JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject(); 
-	//Read the values from the JSON object
+	
+	 //Read the values from the JSON object
 	 String PaymentID = paymentObject.get("PaymentID").getAsString(); 
 	 String CardNumber = paymentObject.get("CardNumber").getAsString(); 
 	 String CardName = paymentObject.get("CardName").getAsString(); 
