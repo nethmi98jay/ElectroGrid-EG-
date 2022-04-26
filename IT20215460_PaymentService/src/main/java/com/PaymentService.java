@@ -41,21 +41,23 @@ public class PaymentService
 	return output; 
 	}
 	
-@PUT
-@Path("/") 
-@Consumes(MediaType.APPLICATION_JSON) 
-@Produces(MediaType.TEXT_PLAIN) 
-public String updatePayment(String paymentData) 
-{ 
-//Convert the input string to a JSON object 
- JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject(); 
-//Read the values from the JSON object
- String PaymentID = paymentObject.get("PaymentID").getAsString(); 
- String CardNumber = paymentObject.get("CardNumber").getAsString(); 
- String CardName = paymentObject.get("CardName").getAsString(); 
- String Cvv = paymentObject.get("Cvv").getAsString(); 
- String ExpDate = paymentObject.get("ExpDate").getAsString(); 
- String output = paymentObj.updatePayment(PaymentID,CardNumber,CardName,Cvv,ExpDate); 
-return output; 
-}
+	@PUT
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updatePayment(String paymentData) 
+	{ 
+	//Convert the input string to a JSON object 
+	 JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject(); 
+	//Read the values from the JSON object
+	 String PaymentID = paymentObject.get("PaymentID").getAsString(); 
+	 String CardNumber = paymentObject.get("CardNumber").getAsString(); 
+	 String CardName = paymentObject.get("CardName").getAsString(); 
+	 String Cvv = paymentObject.get("Cvv").getAsString(); 
+	 String ExpDate = paymentObject.get("ExpDate").getAsString(); 
+	 String output = paymentObj.updatePayment(PaymentID,CardNumber,CardName,Cvv,ExpDate); 
+	return output; 
+	}
+	
+	
 }

@@ -119,9 +119,11 @@ public class Payment {
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
+		 
 		 // create a prepared statement
 		 String query = "UPDATE payment SET CardNumber=?,CardName=?,Cvv=?,ExpDate=? WHERE PaymentID=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
 		 // binding values
 		 preparedStmt.setString(1, CardNumber); 
 		 preparedStmt.setString(2, CardName);
