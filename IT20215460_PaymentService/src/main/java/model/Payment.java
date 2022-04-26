@@ -29,6 +29,7 @@ public class Payment {
 	
 	
 	
+	
 	public String readPayments() 
 	 { 
 	 String output = ""; 
@@ -80,6 +81,9 @@ public class Payment {
 	
 	
 	
+	
+	
+	
 	//Insert Payments
 		public String insertPayment(String CardNumber, String CardName, String Cvv, String ExpDate) 
 		 { 
@@ -94,7 +98,7 @@ public class Payment {
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values 
 			 preparedStmt.setInt(1, 0); 
-			 preparedStmt.setString(2, CardNumber); 
+			 preparedStmt.setString(1, CardNumber); 
 			 preparedStmt.setString(3, CardName); 
 			 preparedStmt.setString(4, Cvv); 
 			 preparedStmt.setString(5, ExpDate); 
@@ -110,5 +114,41 @@ public class Payment {
 			 } 
 			 return output; 
 			 } 
+		
+		public String updatePayment(String PaymentID,String CardNumber, String CardName, String Cvv, String ExpDate) 
+		 { 
+		 String output = ""; 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for updating."; } 
+		 
+		 // create a prepared statement
+		 String query = "UPDATE payment SET CardNumber=?,CardName=?,Cvv=?,ExpDate=? WHERE PaymentID=?"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
+		 // binding values
+		 preparedStmt.setString(1, CardNumber); 
+		 preparedStmt.setString(2, CardName);
+		 preparedStmt.setString(3, Cvv);
+		 preparedStmt.setString(4, ExpDate);
+		 preparedStmt.setInt(5, Integer.parseInt(PaymentID));
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Updated successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while updating the Payment."; 
+		 System.err.println(e.getMessage()); 
+		 } 
+		 return output; 
+		 } 
+		
+		
+		
+	
+		
 	
 }
